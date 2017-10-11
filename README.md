@@ -1,6 +1,6 @@
 # angularjs-webpack
 
-[![Dependency Status](https://david-dm.org/preboot/angularjs-webpack/status.svg)](https://david-dm.org/preboot/angular-webpack#info=dependencies) [![devDependency Status](https://david-dm.org/preboot/angularjs-webpack/dev-status.svg)](https://david-dm.org/preboot/angularjs-webpack#info=devDependencies)
+[![Dependency Status](https://david-dm.org/psancho/angularjs-webpack/status.svg)](https://david-dm.org/psancho/angular-webpack#info=dependencies) [![devDependency Status](https://david-dm.org/psancho/angularjs-webpack/dev-status.svg)](https://david-dm.org/psancho/angularjs-webpack#info=devDependencies)
 
 A complete, yet simple, starter for AngularJS using Webpack.
 
