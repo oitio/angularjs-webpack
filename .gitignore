@@ -2,3 +2,4 @@ node_modules
 dist
 coverage
 src/app/configFile.json
+package-lock.json
