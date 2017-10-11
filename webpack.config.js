@@ -7,6 +7,7 @@ const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const bootstrapEntryPoints = require('./webpack.bootstrap.config.js');
 const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
 
 /**
@@ -64,9 +65,11 @@ module.exports = function makeWebpackConfig() {
      * Should be an empty object if it's generating a test build
      * Karma will set this when it's a test build
      */
-    config.entry = isTest ? void 0 : {
-        app: './src/app/app.js'
-    };
+    config.entry = isTest ? void 0 : [
+        'font-awesome-loader',
+        isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev,
+        './src/app/app.js'
+    ];
 
     /**
      * Loaders
@@ -129,6 +132,9 @@ module.exports = function makeWebpackConfig() {
                 {loader: "sass-loader"}/*,
                 {loader: 'resolve-url-loader'}*/
             ]
+        }, {
+            test: /bootstrap-sass[\\\/]assets[\\\/]javascripts[\\\/]/,
+            use: 'imports-loader?jQuery=jquery'
         }]
     };
 
