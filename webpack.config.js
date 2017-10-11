@@ -24,36 +24,13 @@ module.exports = function makeWebpackConfig() {
   var config = {};
 
   /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   * Should be an empty object if it's generating a test build
-   * Karma will set this when it's a test build
+   * Dev server configuration
+   * Reference: http://webpack.github.io/docs/configuration.html#devserver
+   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
    */
-  config.entry = isTest ? void 0 : {
-    app: './src/app/app.js'
-  };
-
-  /**
-   * Output
-   * Reference: http://webpack.github.io/docs/configuration.html#output
-   * Should be an empty object if it's generating a test build
-   * Karma will handle setting it up for you when it's a test build
-   */
-  config.output = isTest ? {} : {
-    // Absolute output directory
-    path: __dirname + '/dist',
-
-    // Output path from the view of the page
-    // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://localhost:8080/',
-
-    // Filename for entry points
-    // Only adds hash in build mode
-    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-
-    // Filename for non-entry points
-    // Only adds hash in build mode
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+  config.devServer = {
+    contentBase: './src/public',
+    stats: 'minimal'
   };
 
   /**
@@ -70,6 +47,16 @@ module.exports = function makeWebpackConfig() {
   else {
     config.devtool = 'eval-source-map';
   }
+
+  /**
+   * Entry
+   * Reference: http://webpack.github.io/docs/configuration.html#entry
+   * Should be an empty object if it's generating a test build
+   * Karma will set this when it's a test build
+   */
+  config.entry = isTest ? void 0 : {
+    app: './src/app/app.js'
+  };
 
   /**
    * Loaders
@@ -147,6 +134,29 @@ module.exports = function makeWebpackConfig() {
   }
 
   /**
+   * Output
+   * Reference: http://webpack.github.io/docs/configuration.html#output
+   * Should be an empty object if it's generating a test build
+   * Karma will handle setting it up for you when it's a test build
+   */
+  config.output = isTest ? {} : {
+    // Absolute output directory
+    path: __dirname + '/dist',
+
+    // Output path from the view of the page
+    // Uses webpack-dev-server in development
+    publicPath: isProd ? '/' : 'http://localhost:8080/',
+
+    // Filename for entry points
+    // Only adds hash in build mode
+    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
+
+    // Filename for non-entry points
+    // Only adds hash in build mode
+    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+  };
+
+  /**
    * PostCSS
    * Reference: https://github.com/postcss/autoprefixer-core
    * Add vendor prefixes to your css
@@ -209,16 +219,6 @@ module.exports = function makeWebpackConfig() {
       }])
     )
   }
-
-  /**
-   * Dev server configuration
-   * Reference: http://webpack.github.io/docs/configuration.html#devserver
-   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
-   */
-  config.devServer = {
-    contentBase: './src/public',
-    stats: 'minimal'
-  };
 
   return config;
 }();
