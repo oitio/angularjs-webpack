@@ -18,15 +18,14 @@ const isProd = ENV === 'build';
 module.exports = function makeWebpackConfig() {
   /**
    * Config
-   * Reference: http://webpack.github.io/docs/configuration.html
+   * Reference: https://webpack.js.org/configuration/
    * This is the object where all configuration gets set
    */
   var config = {};
 
   /**
    * Dev server configuration
-   * Reference: http://webpack.github.io/docs/configuration.html#devserver
-   * Reference: http://webpack.github.io/docs/webpack-dev-server.html
+   * Reference: https://webpack.js.org/configuration/dev-server/
    */
   config.devServer = {
     contentBase: './src/public',
@@ -35,7 +34,7 @@ module.exports = function makeWebpackConfig() {
 
   /**
    * Devtool
-   * Reference: http://webpack.github.io/docs/configuration.html#devtool
+   * Reference: https://webpack.js.org/configuration/devtool/
    * Type of sourcemap to use per build type
    */
   if (isTest) {
@@ -50,7 +49,7 @@ module.exports = function makeWebpackConfig() {
 
   /**
    * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
+   * Reference: https://webpack.js.org/configuration/entry-context/
    * Should be an empty object if it's generating a test build
    * Karma will set this when it's a test build
    */
@@ -60,8 +59,8 @@ module.exports = function makeWebpackConfig() {
 
   /**
    * Loaders
-   * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
-   * List: http://webpack.github.io/docs/list-of-loaders.html
+   * Reference: https://webpack.js.org/configuration/module/
+   * List: https://webpack.js.org/loaders/
    * This handles most of the magic responsible for converting modules
    */
 
@@ -135,7 +134,7 @@ module.exports = function makeWebpackConfig() {
 
   /**
    * Output
-   * Reference: http://webpack.github.io/docs/configuration.html#output
+   * Reference: https://webpack.js.org/configuration/output/
    * Should be an empty object if it's generating a test build
    * Karma will handle setting it up for you when it's a test build
    */
@@ -166,8 +165,8 @@ module.exports = function makeWebpackConfig() {
 
   /**
    * Plugins
-   * Reference: http://webpack.github.io/docs/configuration.html#plugins
-   * List: http://webpack.github.io/docs/list-of-plugins.html
+   * Reference: https://webpack.js.org/configuration/plugins/
+   * List: https://webpack.js.org/plugins/
    */
   config.plugins = [
     new webpack.LoaderOptionsPlugin({
@@ -200,7 +199,7 @@ module.exports = function makeWebpackConfig() {
   // Add build specific plugins
   if (isProd) {
     config.plugins.push(
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
+      // Reference: https://webpack.js.org/plugins/no-emit-on-errors-plugin/
       // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
 
