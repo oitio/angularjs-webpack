@@ -98,7 +98,6 @@ module.exports = function makeWebpackConfig() {
             //
             // Reference: https://github.com/webpack/style-loader
             // Use style-loader in development.
-
             use: isTest ? 'null-loader' : ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [
@@ -121,6 +120,15 @@ module.exports = function makeWebpackConfig() {
             // Allow loading html through js
             test: /\.html$/,
             use: 'raw-loader'
+        }, {
+            test: /\.scss$/,
+            use: [
+                {loader: "style-loader"},
+                {loader: "css-loader"},
+                {loader: "postcss-loader"},
+                {loader: "sass-loader"}/*,
+                {loader: 'resolve-url-loader'}*/
+            ]
         }]
     };
 

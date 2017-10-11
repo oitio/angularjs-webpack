@@ -44,11 +44,13 @@
         "karma-spec-reporter": "^0.0.31",
         "karma-webpack": "^2.0.0",
         "node-libs-browser": "2.0.0",
+        "node-sass": "^4.5.3",
         "null-loader": "^0.1.1",
         "phantomjs-prebuilt": "^2.1.0",
         "postcss-loader": "2.0.0",
         "raw-loader": "^0.5.1",
         "rimraf": "^2.5.1",
+        "sass-loader": "^6.0.0",
         "style-loader": "^0.18.0",
         "webpack": "^2.7.0",
         "webpack-dev-server": "^2.8.0"
