@@ -3,9 +3,11 @@
 // Modules
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
 
 /**
  * Env
@@ -14,6 +16,15 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ENV = process.env.npm_lifecycle_event;
 const isTest = ENV === 'test' || ENV === 'test-watch';
 const isProd = ENV === 'build';
+let baseHref;
+try {
+    let config = JSON.parse(fs.readFileSync('./src/app/configFile.json', 'utf8'));
+    baseHref = config.production.baseHref;
+    console.log('BaseHref found: "' + baseHref + '".');
+} catch (e) {
+    console.log('Either cannot read config file or baseHref not set for production; assuming "/".');
+    baseHref = '/';
+}
 
 module.exports = function makeWebpackConfig() {
     /**
@@ -144,7 +155,7 @@ module.exports = function makeWebpackConfig() {
 
         // Output path from the view of the page
         // Uses webpack-dev-server in development
-        publicPath: isProd ? '/' : 'http://localhost:8080/',
+        publicPath: isProd ? baseHref : 'http://localhost:8080/',
 
         // Filename for entry points
         // Only adds hash in build mode
@@ -215,7 +226,9 @@ module.exports = function makeWebpackConfig() {
             // Reference: https://github.com/kevlened/copy-webpack-plugin
             new CopyWebpackPlugin([{
                 from: __dirname + '/src/public'
-            }])
+            }]),
+
+            new BaseHrefWebpackPlugin({ baseHref: baseHref })
         )
     }
 
