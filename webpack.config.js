@@ -72,7 +72,7 @@ module.exports = function makeWebpackConfig() {
             // Transpile .js files using babel-loader
             // Compiles ES6 and ES7 into ES5 code
             test: /\.js$/,
-            loader: 'babel-loader',
+            use: 'babel-loader',
             exclude: /node_modules/
         }, {
             // CSS LOADER
@@ -88,9 +88,9 @@ module.exports = function makeWebpackConfig() {
             // Reference: https://github.com/webpack/style-loader
             // Use style-loader in development.
 
-            loader: isTest ? 'null-loader' : ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: [
+            use: isTest ? 'null-loader' : ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
                     {loader: 'css-loader', query: {sourceMap: true}},
                     {loader: 'postcss-loader'}
                 ],
@@ -103,13 +103,13 @@ module.exports = function makeWebpackConfig() {
             // Pass along the updated reference to your code
             // You can add here any file extension you want to get copied to your output
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-            loader: 'file-loader'
+            use: 'file-loader'
         }, {
             // HTML LOADER
             // Reference: https://github.com/webpack/raw-loader
             // Allow loading html through js
             test: /\.html$/,
-            loader: 'raw-loader'
+            use: 'raw-loader'
         }]
     };
 
@@ -125,9 +125,9 @@ module.exports = function makeWebpackConfig() {
                 /node_modules/,
                 /\.spec\.js$/
             ],
-            loader: 'istanbul-instrumenter-loader',
-            query: {
-                esModules: true
+            use: {
+                loader: 'istanbul-instrumenter-loader',
+                query: { esModules: true }
             }
         })
     }
@@ -192,7 +192,11 @@ module.exports = function makeWebpackConfig() {
             // Reference: https://github.com/webpack/extract-text-webpack-plugin
             // Extract css files
             // Disabled when in test mode or not in build mode
-            new ExtractTextPlugin({filename: 'css/[name].css', disable: !isProd, allChunks: true})
+            new ExtractTextPlugin({
+                filename: 'css/[name].css',
+                disable: !isProd,
+                allChunks: true
+            })
         )
     }
 
@@ -201,11 +205,7 @@ module.exports = function makeWebpackConfig() {
         config.plugins.push(
             // Reference: https://webpack.js.org/plugins/no-emit-on-errors-plugin/
             // Only emit files when there are no errors
-            new webpack.NoErrorsPlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-            // Dedupe modules in the output
-            new webpack.optimize.DedupePlugin(),
+            new webpack.NoEmitOnErrorsPlugin(),
 
             // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
             // Minify all javascript, switch loaders to minimizing mode
