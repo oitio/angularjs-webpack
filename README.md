@@ -45,7 +45,7 @@ go to [http://localhost:8080](http://localhost:8080) in your browser.
     * [Running the app](#running-the-app)
     * [Developing](#developing)
     * [Testing](#testing)
-* [License](#license)
+* [Licenses](#licenses)
 
 # Getting Started
 
@@ -84,6 +84,9 @@ It will start a local server using `webpack-dev-server` which will watch, build 
 * single run: `npm test`
 * live mode (TDD style): `npm run test-watch`
 
-# License
+# Licenses
 
-[MIT](/LICENSE)
+This project come under the dual license MIT or Apache. The initial project is under MIT license. Some changes are inspired by projects under Apache license. Therefore you can choose either the former or the latter license.
+
+* [MIT](./LICENSE-MIT)
+* [Apache](./LICENSE-APACHE)
