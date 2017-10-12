@@ -1,6 +1,9 @@
-// Reference: http://karma-runner.github.io/0.12/config/configuration-file.html
+// Reference: http://karma-runner.github.io/1.0/config/configuration-file.html
 module.exports = function karmaConfig (config) {
     config.set({
+        // base path used to resolve all patterns
+        basePath: '',
+
         frameworks: [
             // Reference: https://github.com/karma-runner/karma-jasmine
             // Set framework to jasmine
@@ -19,14 +22,15 @@ module.exports = function karmaConfig (config) {
 
         files: [
             // Grab all files in the app folder that contain .spec.
-            'src/tests.webpack.js'
+            'src/spec.bundle.js'
         ],
 
         preprocessors: {
             // Reference: http://webpack.github.io/docs/testing.html
             // Reference: https://github.com/webpack/karma-webpack
             // Convert files with webpack and load sourcemaps
-            'src/tests.webpack.js': ['webpack', 'sourcemap']
+            // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+            'src/spec.bundle.js': ['webpack', 'sourcemap']
         },
 
         browsers: [
