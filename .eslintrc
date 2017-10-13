@@ -1,0 +1,50 @@
+{
+    "extends": "eslint:recommended",
+    "plugins": [],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "jasmine": true,
+        "node": true
+    },
+    "globals": {
+        "angular": true,
+        "module": true,
+        "inject": true
+    },
+    "rules": {
+        "strict": ["error", "function"],
+        "curly": "error",
+        "dot-notation": "error",
+        "eqeqeq": ["error", "always"],
+        "no-alert": "error",
+        "no-console": "error",
+        "no-debugger": "error",
+        "no-eval": "error",
+        "no-implied-eval": "error",
+        "no-eq-null": "error",
+        "no-lone-blocks": "error",
+        "no-loop-func": "error",
+        "no-magic-numbers": ["error", {
+                "ignoreArrayIndexes": true,
+                "ignore": [0]
+            }],
+        "no-unmodified-loop-condition": "error",
+        "no-useless-concat": "error",
+        "no-warning-comments": "error",
+        "brace-style": "error",
+        "camelcase": "error",
+        "comma-style": ["error", "last"],
+        "func-style": ["error", "declaration"],
+        "object-property-newline": "error",
+        "operator-linebreak": ["error", "before"],
+        "quote-props": ["error", "as-needed", {
+                "keywords": true,
+                "unnecessary": false
+            }]
+    }
+}

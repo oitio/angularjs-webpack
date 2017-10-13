@@ -81,6 +81,11 @@ module.exports = function makeWebpackConfig() {
     // Initialize module
     config.module = {
         rules: [{
+            test: /\.js$/,
+            enforce: 'pre',
+            use: 'eslint-loader',
+            exclude: /node_modules/
+        }, {
             // JS LOADER
             // Reference: https://github.com/babel/babel-loader
             // Transpile .js files using babel-loader
