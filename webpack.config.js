@@ -9,6 +9,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const bootstrapEntryPoints = require('./webpack.bootstrap.config.js');
 const { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /**
  * Env
@@ -180,33 +181,11 @@ module.exports = function makeWebpackConfig() {
         chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
     };
 
-    /**
-     * PostCSS
-     * Reference: https://github.com/postcss/autoprefixer-core
-     * Add vendor prefixes to your css
-     */
-     // NOTE: This is now handled in the `postcss.config.js`
-     //       webpack2 has some issues, making the config file necessary
-
-    /**
-     * Plugins
-     * Reference: https://webpack.js.org/configuration/plugins/
-     * List: https://webpack.js.org/plugins/
-     */
-    config.plugins = [
-        new webpack.LoaderOptionsPlugin({
-            test: /\.scss$/i,
-            options: {
-                postcss: {
-                    plugins: [autoprefixer]
-                }
-            }
-        })
-    ];
+    config.plugins = [];
 
     // Skip rendering index.html in test mode
     if (!isTest) {
-        // Reference: https://github.com/ampedandwired/html-webpack-plugin
+        // Reference: https://webpack.js.org/plugins/html-webpack-plugin/
         // Render index.html
         config.plugins.push(
             new HtmlWebpackPlugin({
@@ -214,7 +193,7 @@ module.exports = function makeWebpackConfig() {
                 inject: 'body'
             }),
 
-            // Reference: https://github.com/webpack/extract-text-webpack-plugin
+            // Reference: https://webpack.js.org/plugins/extract-text-webpack-plugin/
             // Extract css files
             // Disabled when in test mode or not in build mode
             new ExtractTextPlugin({
@@ -232,16 +211,18 @@ module.exports = function makeWebpackConfig() {
             // Only emit files when there are no errors
             new webpack.NoEmitOnErrorsPlugin(),
 
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+            // Reference: https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
             // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin(),
+            new UglifyJsPlugin(),
 
+            // Reference: https://webpack.js.org/plugins/copy-webpack-plugin/
             // Copy assets from the public folder
-            // Reference: https://github.com/kevlened/copy-webpack-plugin
             new CopyWebpackPlugin([{
                 from: __dirname + '/src/public'
             }]),
 
+            // Reference: https://github.com/dzonatan/base-href-webpack-plugin
+            // Webpack plugin for inserting base href tag in head block
             new BaseHrefWebpackPlugin({ baseHref: baseHref })
         )
     }
